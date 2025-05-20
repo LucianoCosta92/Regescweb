@@ -1,0 +1,8 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Editar Professor')}"></head>
+<body>
+	<header th:replace="~{fragmentos :: header('Editar Professor #' + ${professorId})}"></header>
+	<div th:replace="~{professores/fragmentos_professor :: form(professorDTO, '/professores/' + ${professorId})}"></div>
+</body>
+</html>
