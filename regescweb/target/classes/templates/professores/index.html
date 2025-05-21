@@ -6,36 +6,66 @@
 	<div class="container">
 		<div>
 			<table class="table">
-		  <thead class="table table-sm table-dark">
-		    <tr>
-		      <th scope="col">ID</th>
-		      <th scope="col">Nome</th>
-		      <th scope="col">Salário</th>
-		      <th scope="col">Status</th>
-		      <th scope="col">Info</th>
-		      <th scope="col">Editar</th>
-		      <th scope="col">Excluir</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr th:each="professor : ${professores}">
-		      <th scope="row" th:text="${professor.id}">ID</th>
-		      <td th:text="${professor.nome}">Nome do Professor</td>
-		      <td th:text="${professor.salario}">Salário</td>
-		      <td th:text="${professor.statusProfessor}">Status</td>
-		      <td><a th:href="@{/professores/{professorId}(professorId = ${professor.id})}"><i class="fa-solid fa-circle-info"></i></a></td>
-		      <td><a th:href="@{/professores/{professorId}/edit(professorId = ${professor.id})}"><i class="fas fa-pencil-alt"></i></a></td>
-		      <td><a th:href="@{/professores/{professorId}/delete(professorId = ${professor.id})}"><i class="fas fa-trash"></i></a></td>
-		    </tr>
-		  </tbody>
-		</table>
-		<div>
-			<div class="row">
-				<a href="/professores/new">Novo Professor</a>
+				<thead class="table table-sm table-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Nome</th>
+						<th scope="col">Salário</th>
+						<th scope="col">Status</th>
+						<th scope="col">Info</th>
+						<th scope="col">Editar</th>
+						<th scope="col">Excluir</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="professor : ${professores}">
+						<th scope="row" th:text="${professor.id}">ID</th>
+						<td th:text="${professor.nome}">Nome do Professor</td>
+						<td th:text="${professor.salario}">Salário</td>
+						<td th:text="${professor.statusProfessor}">Status</td>
+						<td><a
+							th:href="@{/professores/{professorId}(professorId = ${professor.id})}"><i
+								class="fa-solid fa-circle-info"></i></a></td>
+						<td><a
+							th:href="@{/professores/{professorId}/edit(professorId = ${professor.id})}"><i
+								class="fas fa-pencil-alt"></i></a></td>
+						<td><a href="#" class="text-danger"
+							th:attr="data-bs-toggle='modal', data-bs-target='#modal_' + ${professor.id}">
+								<i class="fas fa-trash"></i></a> 
+								
+							<!--  modal de exclusão -->
+							<div class="modal fade" th:id="'modal_' + ${professor.id}" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h3 class="modal-title">Excluir professor</h3>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<h5>Deseja excluir o professor #<span th:text="${professor.id}">?</span></h5>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Cancelar</button>
+											<a
+												th:href="@{/professores/{professorId}/delete(professorId = ${professor.id})}"
+												class="btn btn-primary">Excluir</a>
+										</div>
+									</div>
+								</div>
+							</div></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<div>
+					<button href="/professores/new" class="btn btn-primary" type="submit">Novo Professor</button>
+				</div>
 			</div>
 		</div>
-		</div>
-		<footer th:replace="~{fragmentos :: footer}"></footer>
 	</div>
 </body>
 </html>
