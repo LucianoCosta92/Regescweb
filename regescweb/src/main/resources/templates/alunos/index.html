@@ -1,0 +1,73 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Lista de Alunos')}"></head>
+<body>
+	<header th:replace="~{fragmentos :: header('Lista de Alunos')}"></header>
+	<div class="container">
+		<div>
+			<table class="table">
+				<thead class="table table-sm table-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Nome do Aluno</th>
+						<th scope="col">E-mail</th>
+						<th scope="col">Telefone</th>
+						<th scope="col">Info</th>
+						<th scope="col">Editar</th>
+						<th scope="col">Excluir</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="aluno : ${alunos}">
+						<th scope="row" th:text="${aluno.id}">ID</th>
+						<td th:text="${aluno.nome}">Nome do Aluno</td>
+						<td th:text="${aluno.email}">E-mail</td>
+						<td th:text="${aluno.telefone}">Telefone</td>
+						<td><a
+							th:href="@{/alunos/{alunoId}(alunoId = ${aluno.id})}"><i
+								class="fa-solid fa-circle-info"></i></a></td>
+						<td><a
+							href="#"><i
+								class="fas fa-pencil-alt"></i></a></td>
+						<td><a href="#" class="text-danger"
+							th:attr="data-bs-toggle='modal', data-bs-target='#modal_' + ${aluno.id}">
+								<i class="fas fa-trash"></i></a> 
+						
+							<!--  modal de exclusão -->
+							<div class="modal fade" th:id="'modal_' + ${aluno.id}"
+								tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h3 class="modal-title">Excluir aluno</h3>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<h5>
+												Deseja excluir o aluno #<span th:text="${aluno.id}">?</span>
+											</h5>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Cancelar</button>
+											<a
+												href="#"
+												class="btn btn-primary">Excluir</a>
+										</div>
+									</div>
+								</div>
+							</div></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<div>
+					<a href="/alunos/new" class="btn btn-primary" type="submit">Novo Aluno</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

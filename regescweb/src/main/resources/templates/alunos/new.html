@@ -1,0 +1,8 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Novo Aluno')}"></head>
+<body>
+	<header th:replace="~{fragmentos :: header('Novo Aluno')}"></header>
+	<div th:replace="~{alunos/fragmentos_aluno :: form(alunoDTO, '/alunos')}"></div>
+</body>
+</html>
