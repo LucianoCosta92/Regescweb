@@ -48,6 +48,14 @@ public class AlunoDTO {
 		return aluno;
 	}
 	
+	public Aluno toAluno(Aluno aluno) {
+		aluno.setNome(this.nome);
+		aluno.setEmail(this.email);
+		aluno.setTelefone(this.telefone);
+		
+		return aluno;
+	}
+	
 	public void fromAluno(Aluno aluno) {
 		this.nome = aluno.getNome();
 		this.email = aluno.getEmail();

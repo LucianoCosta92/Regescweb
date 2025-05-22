@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.luciano.regescweb.dto.AlunoDTO;
 import br.com.luciano.regescweb.models.Aluno;
@@ -77,6 +78,48 @@ public class AlunoController {
 			return new ModelAndView("redirect:/alunos");
 		}
 	}
+	
+	@PostMapping("/{id}")
+	public ModelAndView update(@PathVariable Long id, @Valid AlunoDTO request, BindingResult result) {
+		if (result.hasErrors()) {
+			ModelAndView mv = new ModelAndView("alunos/edit");
+			mv.addObject("alunoId", id);
+			return mv;
+		} else {
+			Optional<Aluno> optional = this.alunoRepository.findById(id);
+			if (optional.isPresent()) {
+				Aluno aluno = request.toAluno(optional.get());
+				this.alunoRepository.save(aluno);
+				
+				return new ModelAndView("redirect:/alunos/" + aluno.getId());
+			} else {
+				return new ModelAndView("redirect:/alunos");
+			}
+		}
+	}
+	
+	@GetMapping("/{id}/delete")
+	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		if(alunoRepository.existsById(id)) {
+			this.alunoRepository.deleteById(id);
+			redirectAttributes.addFlashAttribute("mensagem", "Aluno #" + id + " deletado com sucesso!");
+			redirectAttributes.addFlashAttribute("erro", false);
+		} else {
+			redirectAttributes.addFlashAttribute("mensagem", "Aluno #" + id + " não encontrado no banco!");
+			redirectAttributes.addFlashAttribute("erro", true);
+		}
+		return "redirect:/alunos";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

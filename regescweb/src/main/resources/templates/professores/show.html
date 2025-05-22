@@ -5,16 +5,18 @@
 	<header th:replace="~{fragmentos :: header('Professor #' + ${professor.id})}"></header>
 	<main>
 		<div class="container mt-4">
-			<div class="row">
+			<div class="boxmodel1">
 				<div class="col-12">
 					<b>Nome: </b><span th:text="${professor.nome}"></span><br>
 					<b>Salário: </b><span th:text="${professor.salario}"></span><br>
 					<b>Status: </b><span th:text="${professor.statusProfessor.toString()}"></span><br>
 				</div>
 			</div>
+			<br>
 			<div class="row">
 				<div class="col-12">
-					<a th:href="@{/professores/{professorId}/edit(professorId = ${professor.id})}">Editar </a><a href="/professores"> Voltar</a>
+					<a th:href="@{/professores/{professorId}/edit(professorId = ${professor.id})}" class="btn btn-primary" type="submit">Editar </a>
+						<a href="/professores"> Voltar</a>
 				</div>
 			</div>
 		</div>

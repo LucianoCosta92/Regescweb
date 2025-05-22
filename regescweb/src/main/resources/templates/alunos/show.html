@@ -14,7 +14,8 @@
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<a href="#">Editar </a><a href="/alunos"> Voltar</a>
+					<a th:href="@{/alunos/{alunoId}/edit(alunoId = ${aluno.id})}" class="btn btn-primary" type="submit">Editar</a>   
+					<a href="/alunos"> Voltar</a>
 				</div>
 			</div>
 		</div>

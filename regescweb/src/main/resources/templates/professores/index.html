@@ -3,7 +3,17 @@
 <head th:replace="~{fragmentos :: head('Lista de Professores')}"></head>
 <body>
 	<header th:replace="~{fragmentos :: header('Lista de Professores')}"></header>
-	<div class="container">
+	
+	<div class="container mb-4">
+		<div class="col-12">
+			<span 
+			th:if="${mensagem != null}"
+			th:classappend="${erro == true ? 'error-message' : 'sucess-message'}" 
+			th:text="${mensagem}">Mensagem!</span>
+		</div>
+	</div>
+	
+	<div class="container mt-4">
 		<div>
 			<table class="table">
 				<thead class="table table-sm table-dark">

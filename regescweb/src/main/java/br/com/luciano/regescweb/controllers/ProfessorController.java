@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.luciano.regescweb.dto.ProfessorDTO;
 import br.com.luciano.regescweb.models.Professor;
@@ -103,12 +104,14 @@ public class ProfessorController {
 	}
 	
 	@GetMapping("/{id}/delete")
-	public String delete(@PathVariable Long id) {
-		try {
+	public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+		if(professorRepository.existsById(id)) {
 			this.professorRepository.deleteById(id);
-			return "redirect:/professores";
-		} catch (Exception e) {
-			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("mensagem", "Professor #" + id + " deletado com sucesso!");
+			redirectAttributes.addFlashAttribute("erro", false);
+		} else {
+			redirectAttributes.addFlashAttribute("mensagem", "Professor #" + id + " não encontrado no banco!");
+			redirectAttributes.addFlashAttribute("erro", true);
 		}
 		return "redirect:/professores";
 	}
